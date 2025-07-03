@@ -11,10 +11,14 @@ export async function createNewDocument() {
     const docCollectionRef = adminDb.collection("documents");
     const docRef = await docCollectionRef.add({
         title: "Nouveau document"
-    })
+    });
 
     await adminDb.collection('users').doc(sessionClaims?.email!).collection('rooms').doc(docRef.id).set({
-        
-    })
+        userId: sessionClaims?.email!,
+        role: "owner",
+        createdAt: new Date(),
+        roomId: docRef.id,
+    });
 
+    return { docId: docRef.id };
 }
