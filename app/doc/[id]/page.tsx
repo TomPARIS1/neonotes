@@ -1,18 +1,16 @@
-'use client'
-
+// Pas de 'use client' ici
 import Document from "@/components/document";
 
-function DocumentPage({
-    params: { id },
-} : {
-    params: {
-        id: string;
-    };
+export default function DocumentPage({
+  params,
+}: {
+  params: { id: string };
 }) {
+  const { id } = params;
+
   return (
     <div className="flex flex-col flex-1 min-h-screen">
-        <Document id={id} />
+      <Document id={id} />
     </div>
-  )
+  );
 }
-export default DocumentPage
