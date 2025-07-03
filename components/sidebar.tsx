@@ -89,10 +89,23 @@ function Sidebar() {
           </h2>
         ) : (
           <>
-            <h2 className='text-gray-500 font-semibold text-sm'>
+            <h2 className='text-gray-500 font-semibold text-sm text-center'>
               Mes documents
             </h2>
             {groupedData.owner.map((doc) =>  (
+              <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`}/>
+            ))}
+          </>
+        )}
+      </div>
+
+      <div className='flex py-4 flex-col space-y-4 md:max-w-36'>
+        {groupedData.editor.length > 0 && (
+          <>
+            <h2 className='text-gray-500 font-semibold text-sm text-center'>
+              Documents partagés
+            </h2>
+            {groupedData.editor.map((doc) =>  (
               <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`}/>
             ))}
           </>
@@ -102,7 +115,7 @@ function Sidebar() {
   )
 
   return (
-    <div className='p-2 md:p-5 bg-gray-200 relative'>
+    <div className='p-2 md:p-7 bg-gray-200 relative'>
       <div className='md:hidden'>
         <Sheet>
           <SheetTrigger>
