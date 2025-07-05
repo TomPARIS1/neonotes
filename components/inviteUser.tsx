@@ -38,6 +38,8 @@ function InviteUser() {
         startTransition(async () => {
             const success = await inviteUserToDocument(roomId, email);
 
+            console.log(success);
+
             if (success) {
                 setIsOpen(false);
                 setInviteEmail("");

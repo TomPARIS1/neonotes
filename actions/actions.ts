@@ -75,8 +75,30 @@ export async function inviteUserToDocument(roomId: string, email: string) {
                 roomId,
             });
 
+        return true;
     } catch (error) {
         console.error("Error inviting user:", error);
         return false;
+    }
+}
+
+export async function removeUserFromDocument(roomId: string, email: string) {
+    auth.protect();
+
+    const {sessionClaims} = await auth();
+
+    try {
+        // Remove the user from the document's room
+        await adminDb
+            .collection('users')
+            .doc(email)
+            .collection('rooms')
+            .doc(roomId)
+            .delete();
+
+        return { success: true };
+    } catch (error) {
+        console.error("Error removing user:", error);
+        return { success: false, error: "Failed to remove user" };
     }
 }
