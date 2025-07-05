@@ -82,9 +82,9 @@ function Sidebar() {
     <>
       <NewDocumentButton/>
 
-      <div className='flex py-4 flex-col space-y-4 md:max-w-36'>
+      <div className='flex py-4 flex-col space-y-4 md:max-w-36 mx-auto'>
         {groupedData.owner.length === 0 ? (
-          <h2 className='text-gray-500 font-semibold text-sm'>
+          <h2 className='text-gray-500 font-semibold text-sm text-center'>
             Aucun document trouvé
           </h2>
         ) : (
@@ -97,9 +97,7 @@ function Sidebar() {
             ))}
           </>
         )}
-      </div>
 
-      <div className='flex py-4 flex-col space-y-4 md:max-w-36'>
         {groupedData.editor.length > 0 && (
           <>
             <h2 className='text-gray-500 font-semibold text-sm text-center'>
@@ -115,7 +113,7 @@ function Sidebar() {
   )
 
   return (
-    <div className='p-2 md:p-7 bg-gray-200 relative'>
+    <div className='p-2 md:p-5 bg-gray-200 relative'>
       <div className='md:hidden'>
         <Sheet>
           <SheetTrigger>

@@ -14,39 +14,40 @@ import { Fragment } from "react";
 
 function Breadcrumbs() {
     const path = usePathname();
-    const segments = path.split("/");
+  const segments = path.split("/").filter(Boolean); // enlève les segments vides
+
+  // Filter "doc" segment
+  const visibleSegments = segments.filter(segment => segment !== "doc");
 
   return (
     <div>
-        <Breadcrumb>
-            <BreadcrumbList>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+
+          {visibleSegments.map((segment, index) => {
+            const href = `/${visibleSegments.slice(0, index + 1).join("/")}`;
+            const isLast = index === visibleSegments.length - 1;
+
+            return (
+              <Fragment key={segment}>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                  {isLast ? (
+                    <BreadcrumbPage>{segment}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
+                  )}
                 </BreadcrumbItem>
-
-                {segments.map((segment, index) => {
-                    if (!segment) return null;
-                    
-                    const href = `/${segments.slice(0, index + 1).join("/")}`;
-                    const isLast = index === segments.length - 1;
-
-                    return (
-                        <Fragment key={segment}>
-                            <BreadcrumbSeparator/>
-                            <BreadcrumbItem>
-                                {isLast ? (
-                                    <BreadcrumbPage>{segment}</BreadcrumbPage>
-                                ) : (
-                                    <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
-                                )}
-                            </BreadcrumbItem>
-                        </Fragment>
-                    );
-                })}
-
-            </BreadcrumbList>
-        </Breadcrumb>
+              </Fragment>
+            );
+          })}
+        </BreadcrumbList>
+      </Breadcrumb>
     </div>
-  )
+  );
 }
+
 export default Breadcrumbs

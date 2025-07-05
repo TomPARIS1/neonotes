@@ -1,12 +1,11 @@
-// Pas de 'use client' ici
 import Document from "@/components/document";
 
-export default function DocumentPage({
+export default async function DocumentPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const { id } = params;
+  const { id } = await params;
 
   return (
     <div className="flex flex-col flex-1 min-h-screen">
